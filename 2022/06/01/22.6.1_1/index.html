@@ -1,0 +1,288 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>爬取豆瓣top250电影表单之数据可视化 | Sinos</title><meta name="keywords" content="student 计算机"><meta name="author" content="Sinos"><meta name="copyright" content="Sinos"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="数据库存储在爬虫写完了，添加了一个新的功能，把爬取到的数据存到了数据库中。在刚开始时了解到PyMySQL，但是用这么库只能用sql语句注入，效率非常低下。在看了大量教程后，了解到了sqlAIchemy能方便地建立sql与pandas数据类型间的连接(类似与Mybatis?)   部分代码如下： # 写入数据库print(&quot;正在写入数据库...&quot;)# 建立连接engine &#x3D; c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬取豆瓣top250电影表单之数据可视化">
+<meta property="og:url" content="https://s1nos.cc/2022/06/01/22.6.1_1/index.html">
+<meta property="og:site_name" content="Sinos">
+<meta property="og:description" content="数据库存储在爬虫写完了，添加了一个新的功能，把爬取到的数据存到了数据库中。在刚开始时了解到PyMySQL，但是用这么库只能用sql语句注入，效率非常低下。在看了大量教程后，了解到了sqlAIchemy能方便地建立sql与pandas数据类型间的连接(类似与Mybatis?)   部分代码如下： # 写入数据库print(&quot;正在写入数据库...&quot;)# 建立连接engine &#x3D; c">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/202206011916247.png">
+<meta property="article:published_time" content="2022-06-01T11:12:51.000Z">
+<meta property="article:modified_time" content="2022-06-01T11:16:58.055Z">
+<meta property="article:author" content="Sinos">
+<meta property="article:tag" content="student 计算机">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/202206011916247.png"><link rel="shortcut icon" href="/img/favic.ico"><link rel="canonical" href="https://s1nos.cc/2022/06/01/22.6.1_1/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":200,"languages":{"author":"作者: Sinos","link":"链接: ","source":"来源: Sinos","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'mediumZoom',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '爬取豆瓣top250电影表单之数据可视化',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-06-01 19:16:58'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="Sinos" type="application/rss+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/head.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fa-brands fa-bilibili"></i><span> 追番</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messages/"><i class="fa-fw fa-solid fa-comment"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/202206011916247.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Sinos</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/bangumis/"><i class="fa-fw fa-brands fa-bilibili"></i><span> 追番</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messages/"><i class="fa-fw fa-solid fa-comment"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">爬取豆瓣top250电影表单之数据可视化</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-06-01T11:12:51.000Z" title="发表于 2022-06-01 19:12:51">2022-06-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-06-01T11:16:58.055Z" title="更新于 2022-06-01 19:16:58">2022-06-01</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="爬取豆瓣top250电影表单之数据可视化"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="数据库存储"><a href="#数据库存储" class="headerlink" title="数据库存储"></a>数据库存储</h2><p>在爬虫写完了，添加了一个新的功能，把爬取到的数据存到了数据库中。<br>在刚开始时了解到PyMySQL，但是用这么库只能用sql语句注入，效率非常低下。<br>在看了大量教程后，了解到了sqlAIchemy能方便地建立sql与pandas数据类型间的连接(类似与Mybatis?)  </p>
+<p>部分代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 写入数据库</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;正在写入数据库...&quot;</span>)</span><br><span class="line"><span class="comment"># 建立连接</span></span><br><span class="line">engine = create_engine(<span class="string">&quot;mysql+mysqlconnector://root:root@localhost:3306/douban?charset=utf8&quot;</span>)</span><br><span class="line">conn = engine.connect()</span><br><span class="line"><span class="comment"># 读取csv</span></span><br><span class="line">df = pd.read_csv(<span class="string">r&#x27;douban_top250.csv&#x27;</span>, header=<span class="literal">None</span>, names=head)</span><br><span class="line">df.sort_values(<span class="string">&#x27;rank&#x27;</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">df = df.replace(<span class="string">&#x27;无&#x27;</span>, np.NaN)</span><br><span class="line"><span class="comment"># 写入sql 建立主键rank</span></span><br><span class="line">df.to_sql(<span class="string">&quot;douban_top250&quot;</span>, conn, index=<span class="literal">False</span>, index_label=<span class="string">&#x27;rank&#x27;</span>)</span><br><span class="line">conn.execute(<span class="string">&quot;&quot;&quot;ALTER TABLE `&#123;&#125;` ADD PRIMARY KEY (`&#123;&#125;`);&quot;&quot;&quot;</span>.<span class="built_in">format</span>(<span class="string">&#x27;douban_top250&#x27;</span>, <span class="string">&#x27;rank&#x27;</span>))</span><br><span class="line">conn.close()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;写入数据库成功!&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>效果：<br><img src="https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/202206011753457.png" alt="vpn"></p>
+<hr>
+<h2 id="数据可视化"><a href="#数据可视化" class="headerlink" title="数据可视化"></a>数据可视化</h2><p>(此段过程全程在jupyter notebook中完成)<br>pyecharts文档  <a target="_blank" rel="noopener" href="https://pyecharts.org/#/">https://pyecharts.org/#/</a><br>pyecharts实例  <a target="_blank" rel="noopener" href="https://gallery.pyecharts.org/#/">https://gallery.pyecharts.org/#/</a></p>
+<h3 id="top250中的主要国家分布"><a href="#top250中的主要国家分布" class="headerlink" title="top250中的主要国家分布"></a>top250中的主要国家分布</h3><h4 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">country</span>(<span class="params">situa</span>):</span><br><span class="line">    death = df[<span class="string">&#x27;area&#x27;</span>].<span class="built_in">str</span>.contains(situa)</span><br><span class="line">    Situa = df.loc[death]</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">len</span>(Situa)</span><br><span class="line">Country_value = [country(<span class="string">&#x27;中国&#x27;</span>), country(<span class="string">&#x27;美国&#x27;</span>), country(<span class="string">&#x27;英国&#x27;</span>), country(<span class="string">&#x27;法国&#x27;</span>), country(<span class="string">&#x27;意大利&#x27;</span>), country(<span class="string">&#x27;日本&#x27;</span>), \</span><br><span class="line">    country(<span class="string">&#x27;新西兰&#x27;</span>), country(<span class="string">&#x27;韩国&#x27;</span>), country(<span class="string">&#x27;瑞士&#x27;</span>), country(<span class="string">&#x27;印度&#x27;</span>), country(<span class="string">&#x27;波兰&#x27;</span>), country(<span class="string">&#x27;澳大利亚&#x27;</span>), country(<span class="string">&#x27;墨西哥&#x27;</span>), \</span><br><span class="line">        country(<span class="string">&#x27;卡塔尔&#x27;</span>), country(<span class="string">&#x27;黎巴嫩&#x27;</span>), country(<span class="string">&#x27;爱尔兰&#x27;</span>), country(<span class="string">&#x27;加拿大&#x27;</span>), country(<span class="string">&#x27;德国&#x27;</span>)]</span><br><span class="line">Country_attr = [<span class="string">&#x27;China&#x27;</span>, <span class="string">&#x27;United States&#x27;</span>, <span class="string">&#x27;United Kingdom&#x27;</span>, <span class="string">&#x27;France&#x27;</span>, <span class="string">&#x27;Italy&#x27;</span>, <span class="string">&#x27;Japan&#x27;</span>, <span class="string">&#x27;New Zealand&#x27;</span>, <span class="string">&#x27;Korea&#x27;</span>,\</span><br><span class="line">     <span class="string">&#x27;Swizetland&#x27;</span>, <span class="string">&#x27;India&#x27;</span>, <span class="string">&#x27;Poland&#x27;</span>, <span class="string">&#x27;Australia&#x27;</span>, <span class="string">&#x27;Mexico&#x27;</span>, <span class="string">&#x27;Qatar&#x27;</span>, <span class="string">&#x27;Lebanon&#x27;</span>, <span class="string">&#x27;Ireland&#x27;</span>, <span class="string">&#x27;Canada&#x27;</span>, <span class="string">&#x27;Germany&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Map - Map_world</span></span><br><span class="line"><span class="comment"># https://gallery.pyecharts.org/#/Map/map_world</span></span><br><span class="line">value = Country_value</span><br><span class="line">attr = Country_attr</span><br><span class="line">data = []</span><br><span class="line"><span class="keyword">for</span> index <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(attr)):</span><br><span class="line">    city_ionfo=[attr[index],value[index]]</span><br><span class="line">    data.append(city_ionfo)</span><br><span class="line">m = (</span><br><span class="line">    Map()</span><br><span class="line">    .add(<span class="string">&quot;世界地图&quot;</span>,data, <span class="string">&quot;world&quot;</span>)</span><br><span class="line">    .set_series_opts(label_opts=opts.LabelOpts(is_show=<span class="literal">False</span>))</span><br><span class="line">    .set_global_opts(</span><br><span class="line">        title_opts=opts.TitleOpts(title=<span class="string">&quot;top250电影制片国家&quot;</span>),</span><br><span class="line">        visualmap_opts=opts.VisualMapOpts(max_=<span class="number">80</span>),</span><br><span class="line"> </span><br><span class="line">    )</span><br><span class="line">)</span><br><span class="line"> </span><br><span class="line">m.render_notebook()</span><br></pre></td></tr></table></figure>
+
+<p>展示：<br><img src="https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/202206011831223.png" alt="vpn"></p>
+<h4 id="Bar"><a href="#Bar" class="headerlink" title="Bar"></a>Bar</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Bar - Bar_base</span></span><br><span class="line"><span class="comment"># https://gallery.pyecharts.org/#/Bar/bar_base</span></span><br><span class="line">x_choose=Country_attr</span><br><span class="line">y_values=Country_value</span><br><span class="line">b= (</span><br><span class="line">    Bar(</span><br><span class="line">        init_opts=opts.InitOpts(</span><br><span class="line">            theme=ThemeType.DARK,</span><br><span class="line">        )</span><br><span class="line">    )</span><br><span class="line">    .add_xaxis(x_choose)</span><br><span class="line">    .add_yaxis(<span class="string">&quot;电影数量&quot;</span>, y_values,)</span><br><span class="line">    .set_global_opts(</span><br><span class="line">        </span><br><span class="line">        xaxis_opts=opts.AxisOpts(axislabel_opts=opts.LabelOpts(rotate=<span class="number">35</span>)),</span><br><span class="line">        title_opts=opts.TitleOpts(title=<span class="string">&quot;top250电影制片国家对比&quot;</span>),</span><br><span class="line">        <span class="comment"># brush_opts=opts.BrushOpts(),</span></span><br><span class="line"></span><br><span class="line">    )</span><br><span class="line">    <span class="comment"># .render(path=&#x27;柱状图.html&#x27;)</span></span><br><span class="line">)</span><br><span class="line">b.render_notebook()</span><br></pre></td></tr></table></figure>
+
+<p>展示：<br><img src="https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/202206011835689.png" alt="vpn"></p>
+<h4 id="Pie"><a href="#Pie" class="headerlink" title="Pie"></a>Pie</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Pie - Pie_rich_label</span><br><span class="line"># https://gallery.pyecharts.org/#/Pie/pie_rich_label</span><br><span class="line"></span><br><span class="line">sortedData = sorted(data, key=lambda st:st[1], reverse=True)</span><br><span class="line"></span><br><span class="line">p = (</span><br><span class="line">    Pie()</span><br><span class="line">    .add(</span><br><span class="line">        &quot;&quot;,</span><br><span class="line">        sortedData,</span><br><span class="line">        radius=[&quot;30%&quot;, &quot;45%&quot;],</span><br><span class="line">        label_opts=opts.LabelOpts(</span><br><span class="line">            position=&quot;outside&quot;,</span><br><span class="line">            formatter=&quot; &#123;b|&#123;b&#125;: &#125;&#123;c&#125;  &#123;per|&#123;d&#125;%&#125; &quot;,</span><br><span class="line">            background_color=&quot;#eee&quot;,</span><br><span class="line">            border_color=&quot;#aaa&quot;,</span><br><span class="line">            border_width=1,</span><br><span class="line">            border_radius=4,</span><br><span class="line">            rich=&#123;</span><br><span class="line">                &quot;a&quot;: &#123;&quot;color&quot;: &quot;#999&quot;, &quot;lineHeight&quot;: 22, &quot;align&quot;: &quot;center&quot;&#125;,</span><br><span class="line">                &quot;abg&quot;: &#123;</span><br><span class="line">                    &quot;backgroundColor&quot;: &quot;#e3e3e3&quot;,</span><br><span class="line">                    &quot;width&quot;: &quot;100%&quot;,</span><br><span class="line">                    &quot;align&quot;: &quot;right&quot;,</span><br><span class="line">                    &quot;height&quot;: 20,</span><br><span class="line">                    &quot;borderRadius&quot;: [4, 4, 0, 0],</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;hr&quot;: &#123;</span><br><span class="line">                    &quot;borderColor&quot;: &quot;#aaa&quot;,</span><br><span class="line">                    &quot;width&quot;: &quot;100%&quot;,</span><br><span class="line">                    &quot;borderWidth&quot;: 0.5,</span><br><span class="line">                    &quot;height&quot;: 0,</span><br><span class="line">                &#125;,</span><br><span class="line">                &quot;b&quot;: &#123;&quot;fontSize&quot;: 10, &quot;lineHeight&quot;: 18&#125;,</span><br><span class="line">                &quot;per&quot;: &#123;</span><br><span class="line">                    &quot;color&quot;: &quot;#eee&quot;,</span><br><span class="line">                    &quot;backgroundColor&quot;: &quot;#334455&quot;,</span><br><span class="line">                    &quot;padding&quot;: [2, 4],</span><br><span class="line">                    &quot;borderRadius&quot;: 2,</span><br><span class="line">                &#125;,</span><br><span class="line">            &#125;,</span><br><span class="line">        ),</span><br><span class="line">    )</span><br><span class="line">    .set_global_opts(</span><br><span class="line">        title_opts=opts.TitleOpts(title=&quot;top250电影制片国家比重&quot;),</span><br><span class="line">        legend_opts=opts.LegendOpts(is_show=False)</span><br><span class="line">    )</span><br><span class="line">)</span><br><span class="line">p.render_notebook()</span><br></pre></td></tr></table></figure>
+
+<p>展示：<br><img src="https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/202206011837356.png" alt="vpn"></p>
+<h3 id="电影评价人数or电影热度"><a href="#电影评价人数or电影热度" class="headerlink" title="电影评价人数or电影热度"></a>电影评价人数or电影热度</h3><h4 id="Bar2"><a href="#Bar2" class="headerlink" title="Bar2"></a>Bar2</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Bar - Bar_base</span></span><br><span class="line"><span class="comment"># https://gallery.pyecharts.org/#/Bar/bar_base</span></span><br><span class="line"><span class="keyword">from</span> pyecharts.<span class="built_in">globals</span> <span class="keyword">import</span> ThemeType</span><br><span class="line">rating_attr = []</span><br><span class="line">rating_value = []</span><br><span class="line">p_lists = df[<span class="string">&#x27;rating_people&#x27;</span>].sort_values(ascending=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20</span>):</span><br><span class="line">    rating_attr.append(df[<span class="string">&#x27;film_name&#x27;</span>][p_lists.index[i]])</span><br><span class="line">    rating_value.append(<span class="built_in">int</span>(p_lists[p_lists.index[i]]))</span><br><span class="line"></span><br><span class="line">x_choose=rating_attr</span><br><span class="line">y_values=rating_value</span><br><span class="line"></span><br><span class="line">b2= (</span><br><span class="line">    Bar(init_opts=opts.InitOpts(</span><br><span class="line">        theme=ThemeType.DARK</span><br><span class="line">    ))</span><br><span class="line">    .add_xaxis(x_choose)</span><br><span class="line">    .add_yaxis(<span class="string">&quot;评价人数&quot;</span>, y_values)</span><br><span class="line">    .set_global_opts(</span><br><span class="line">        xaxis_opts=opts.AxisOpts(axislabel_opts=opts.LabelOpts(rotate=<span class="number">30</span>), name=<span class="string">&quot;电影&quot;</span>),</span><br><span class="line">        title_opts=opts.TitleOpts(title=<span class="string">&quot;top250电影评价人数&quot;</span>),</span><br><span class="line">        yaxis_opts=opts.AxisOpts(name=<span class="string">&quot;数量&quot;</span>),</span><br><span class="line">    )</span><br><span class="line">)</span><br><span class="line">b2.render_notebook()</span><br></pre></td></tr></table></figure>
+
+<p>展示：<br><img src="https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/202206011838485.png" alt="vpn"></p>
+<h3 id="电影类型"><a href="#电影类型" class="headerlink" title="电影类型"></a>电影类型</h3><h4 id="Pie2"><a href="#Pie2" class="headerlink" title="Pie2"></a>Pie2</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Pie - Customized_pie</span></span><br><span class="line"><span class="comment"># https://gallery.pyecharts.org/#/Pie/customized_pie</span></span><br><span class="line"></span><br><span class="line">f_type_lists = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(df[<span class="string">&#x27;filmType&#x27;</span>])):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(df[<span class="string">&#x27;filmType&#x27;</span>][i].split(<span class="string">&#x27;,&#x27;</span>))):</span><br><span class="line">        f_type_lists.append(df[<span class="string">&#x27;filmType&#x27;</span>][i].split(<span class="string">&#x27;,&#x27;</span>)[j].split(<span class="string">&quot;&#x27;&quot;</span>)[<span class="number">1</span>].split(<span class="string">&quot;&#x27;&quot;</span>)[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 去除元素中的空格和换行</span></span><br><span class="line">f_type_lists = [x.strip() <span class="keyword">for</span> x <span class="keyword">in</span> f_type_lists <span class="keyword">if</span> x.strip() != <span class="string">&#x27;&#x27;</span>]</span><br><span class="line"></span><br><span class="line">df_f_type = pd.DataFrame(f_type_lists)</span><br><span class="line">df_f_type.value_counts()</span><br><span class="line">x_f_type_data = []</span><br><span class="line">y_f_type_data = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(df_f_type.value_counts())):</span><br><span class="line">    x_f_type_data.append(df_f_type.value_counts().index[i][<span class="number">0</span>])</span><br><span class="line">    y_f_type_data.append(<span class="built_in">int</span>(df_f_type.value_counts()[i]))</span><br><span class="line">    data_pair = [<span class="built_in">list</span>(z) <span class="keyword">for</span> z <span class="keyword">in</span> <span class="built_in">zip</span>(x_f_type_data, y_f_type_data)]</span><br><span class="line">data_pair.sort(key=<span class="keyword">lambda</span> x: x[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">p2=(</span><br><span class="line">    Pie(</span><br><span class="line">        init_opts=opts.InitOpts(</span><br><span class="line">            theme=ThemeType.DARK</span><br><span class="line">        ))</span><br><span class="line">    .add(</span><br><span class="line">        series_name=<span class="string">&quot;类型&quot;</span>,</span><br><span class="line">        data_pair=data_pair,</span><br><span class="line">        rosetype=<span class="string">&quot;radius&quot;</span>,</span><br><span class="line">        radius=<span class="string">&quot;55%&quot;</span>,</span><br><span class="line">        center=[<span class="string">&quot;50%&quot;</span>, <span class="string">&quot;50%&quot;</span>],</span><br><span class="line">        label_opts=opts.LabelOpts(is_show=<span class="literal">False</span>, position=<span class="string">&quot;center&quot;</span>),</span><br><span class="line">    )</span><br><span class="line">    .set_global_opts(</span><br><span class="line">        title_opts=opts.TitleOpts(</span><br><span class="line">            title=<span class="string">&quot;电影类型&quot;</span>,</span><br><span class="line">            pos_left=<span class="string">&quot;center&quot;</span>,</span><br><span class="line">            pos_top=<span class="string">&quot;20&quot;</span>,</span><br><span class="line">            title_textstyle_opts=opts.TextStyleOpts(color=<span class="string">&quot;#fff&quot;</span>),</span><br><span class="line">        ),</span><br><span class="line">        legend_opts=opts.LegendOpts(is_show=<span class="literal">False</span>),</span><br><span class="line">    )</span><br><span class="line">    .set_series_opts(</span><br><span class="line">        tooltip_opts=opts.TooltipOpts(</span><br><span class="line">            trigger=<span class="string">&quot;item&quot;</span>, formatter=<span class="string">&quot;&#123;a&#125; &lt;br/&gt;&#123;b&#125;: &#123;c&#125; (&#123;d&#125;%)&quot;</span></span><br><span class="line">        ),</span><br><span class="line">        label_opts=opts.LabelOpts(color=<span class="string">&quot;rgba(255, 255, 255, 0.3)&quot;</span>),</span><br><span class="line">    )</span><br><span class="line">)</span><br><span class="line">p2.render_notebook()</span><br></pre></td></tr></table></figure>
+
+<p>展示：<br><img src="https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/202206011839140.png" alt="vpn"></p>
+<h3 id="电影年份"><a href="#电影年份" class="headerlink" title="电影年份"></a>电影年份</h3><h4 id="Line"><a href="#Line" class="headerlink" title="Line"></a>Line</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Line - Line_base</span></span><br><span class="line"><span class="comment"># https://gallery.pyecharts.org/#/Line/line_base</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 取出年份, 计数排序</span></span><br><span class="line">releaseYear = pd.to_datetime(df[<span class="string">&#x27;initialReleaseDate&#x27;</span>])</span><br><span class="line">releaseYear = pd.DatetimeIndex(releaseYear).year</span><br><span class="line">releaseYear = releaseYear.value_counts().sort_index()</span><br><span class="line"></span><br><span class="line">xais = []</span><br><span class="line">yais = []</span><br><span class="line">xais = releaseYear.index.tolist()</span><br><span class="line">yais = releaseYear.values.tolist()</span><br><span class="line"></span><br><span class="line"><span class="comment"># xaxis只能识别字符串，将xais数组元素改为字符串类型</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(xais)):</span><br><span class="line">    xais[i] = <span class="built_in">str</span>(xais[i])</span><br><span class="line"></span><br><span class="line">l=(</span><br><span class="line">    Line()</span><br><span class="line">    .add_xaxis(xaxis_data=xais)</span><br><span class="line">    .add_yaxis(</span><br><span class="line">        series_name=<span class="string">&quot;&quot;</span>,</span><br><span class="line">        y_axis=yais,</span><br><span class="line">    )</span><br><span class="line">    .set_global_opts(</span><br><span class="line">        title_opts=opts.TitleOpts(title=<span class="string">&quot;top250电影年份&quot;</span>),</span><br><span class="line">        )</span><br><span class="line">)</span><br><span class="line">l.render_notebook()</span><br></pre></td></tr></table></figure>
+
+<p>展示：<br><img src="https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/202206011841403.png" alt="vpn"></p>
+<h3 id="演员参演数"><a href="#演员参演数" class="headerlink" title="演员参演数"></a>演员参演数</h3><h4 id="Funnel"><a href="#Funnel" class="headerlink" title="Funnel"></a>Funnel</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Funnel - Funnel_base</span></span><br><span class="line"><span class="comment"># https://gallery.pyecharts.org/#/Funnel/funnel_base</span></span><br><span class="line">actors = df[<span class="string">&#x27;actor&#x27;</span>]</span><br><span class="line">actors = pd.Series([<span class="built_in">str</span>(line).strip(<span class="string">&#x27;[&#x27;</span>).strip(<span class="string">&#x27;]&#x27;</span>) <span class="keyword">for</span> line <span class="keyword">in</span> actors])</span><br><span class="line">actors = actors.<span class="built_in">str</span>.split(<span class="string">&#x27;,&#x27;</span>, expand=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">actors_index = pd.concat([actors.loc[<span class="number">0</span>], actors.loc[<span class="number">1</span>]], axis=<span class="number">0</span>, ignore_index=<span class="literal">True</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, <span class="built_in">len</span>(actors)):</span><br><span class="line">    actors_index = pd.concat([actors_index, actors.loc[i]], axis=<span class="number">0</span>, ignore_index=<span class="literal">True</span>)</span><br><span class="line">actors_index.dropna(inplace=<span class="literal">True</span>)</span><br><span class="line">actors_index = actors_index.<span class="built_in">str</span>.replace(<span class="string">&quot;&#x27;&quot;</span>, <span class="string">&quot;&quot;</span>)</span><br><span class="line">actors_sort = actors_index.value_counts().sort_values(ascending=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">x_data = actors_sort.index.to_list()</span><br><span class="line">y_data = actors_sort.values.tolist()</span><br><span class="line"></span><br><span class="line">p_data = []</span><br><span class="line"><span class="keyword">for</span> index <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">30</span>):</span><br><span class="line">    p_ionfo=[x_data[index],y_data[index]]</span><br><span class="line">    p_data.append(p_ionfo)</span><br><span class="line">p_data</span><br><span class="line">f = (</span><br><span class="line">    Funnel()</span><br><span class="line">    .add(</span><br><span class="line">        <span class="string">&quot;参演&quot;</span>, </span><br><span class="line">        p_data, </span><br><span class="line">        label_opts=opts.LabelOpts(position=<span class="string">&quot;inside&quot;</span>)</span><br><span class="line">        )</span><br><span class="line">    .set_global_opts(</span><br><span class="line">        title_opts = opts.TitleOpts(title=<span class="string">&quot;top250电影参演人员&quot;</span>),</span><br><span class="line">        legend_opts= opts.LegendOpts(is_show=<span class="literal">False</span>)</span><br><span class="line">        )</span><br><span class="line">    <span class="comment"># .render(&quot;funnel_base.html&quot;)</span></span><br><span class="line">)</span><br><span class="line">f.render_notebook()</span><br></pre></td></tr></table></figure>
+
+<p>展示：<br><img src="https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/202206011843515.png" alt="vpn"></p>
+<h2 id="数据分析"><a href="#数据分析" class="headerlink" title="数据分析"></a>数据分析</h2><p>根据以上展示的图表，我们可以观察到美国的文化意识输出还是非常强的，对于在豆瓣上的观众来说，对美国的电影评价更改，我还发现其中有很多老电影。<br>其次就是中国日本以及老牌欧洲国家(法、德、英)的电影更能收到平台观众的青睐。<br>在电影评价中，电影评价数多的电影一般分为两种，一种是电影本身质量过硬，另一种就是电影带来的社会话题讨论。一般评价数高的电影，也都比较好。<br>对于电影类型来说就没有那么看得出一些东西，剧情类占了188个，但是电影要说跟剧情不沾边我觉得不可能，所以这个剧情一般没用，去掉剧情可以看到，爱情和喜剧比较多。<br>根据电影年份则可以看出93年以后出品的电影更能受到观众喜爱。<br>根据参演人员则可了解到哪些演员的电影更能受观众喜爱。雨果·维文就是《黑客帝国》中的史密斯探员，艾伦·瑞克曼参演了哈利波特系列，周星驰的喜剧深受国人们喜爱。</p>
+<h2 id="数据处理与可视化技术总结"><a href="#数据处理与可视化技术总结" class="headerlink" title="数据处理与可视化技术总结"></a>数据处理与可视化技术总结</h2><p>利用pyecharts进行可视化比较简单，只需要将需要的数据传给函数，就会自动渲染出图片，但是处理数据的过程就显得比较困难了。<br>在用pandas的过程中踩了非常多的雷，几乎每一个细节的操作都需要查查官方文档才能正确的执行，当然做出来之后会更加有成就感。(pandas官方文档**<a target="_blank" rel="noopener" href="https://pandas.pydata.org/">https://pandas.pydata.org/</a>**)<br>因此，用python做数据处理需要熟练运用pandas，在做的过程中也算是恶补了一下。<br>该项目到此算是完成了，如果有修改会补充，代码中需要的注释也会陆续补上。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://s1nos.cc">Sinos</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://s1nos.cc/2022/06/01/22.6.1_1/">https://s1nos.cc/2022/06/01/22.6.1_1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://s1nos.cc" target="_blank">Sinos</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/202206011916247.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/qqpay.png" target="_blank"><img class="post-qr-code-img" src="/img/qqpay.png" alt="QQ"/></a><div class="post-qr-code-desc">QQ</div></li><li class="reward-item"><a href="/img/wechatpay.png" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/05/08/22.5.8_1/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/20220508185310.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">爬取豆瓣top250电影表单</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="utterances-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/head.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Sinos</div><div class="author-info__description">An Ordinary Learner</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/SinosBlessing" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:sinos888@foxmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://space.bilibili.com/14139311" target="_blank" title="Bilibili"><i class="fa-brands fa-bilibili"></i></a><a class="social-icon" href="https://qm.qq.com/cgi-bin/qm/qr?k=QEWyupydtN7DhNaXTahDepQZOMH1nGQ0&amp;noverify=0" target="_blank" title="QQ"><i class="fa-brands fa-qq"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fa-solid fa-rss"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到我的个人博客</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%98%E5%82%A8"><span class="toc-text">数据库存储</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="toc-text">数据可视化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#top250%E4%B8%AD%E7%9A%84%E4%B8%BB%E8%A6%81%E5%9B%BD%E5%AE%B6%E5%88%86%E5%B8%83"><span class="toc-text">top250中的主要国家分布</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Map"><span class="toc-text">Map</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bar"><span class="toc-text">Bar</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Pie"><span class="toc-text">Pie</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E5%BD%B1%E8%AF%84%E4%BB%B7%E4%BA%BA%E6%95%B0or%E7%94%B5%E5%BD%B1%E7%83%AD%E5%BA%A6"><span class="toc-text">电影评价人数or电影热度</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Bar2"><span class="toc-text">Bar2</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E5%BD%B1%E7%B1%BB%E5%9E%8B"><span class="toc-text">电影类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Pie2"><span class="toc-text">Pie2</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E5%BD%B1%E5%B9%B4%E4%BB%BD"><span class="toc-text">电影年份</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Line"><span class="toc-text">Line</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%94%E5%91%98%E5%8F%82%E6%BC%94%E6%95%B0"><span class="toc-text">演员参演数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Funnel"><span class="toc-text">Funnel</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90"><span class="toc-text">数据分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E4%B8%8E%E5%8F%AF%E8%A7%86%E5%8C%96%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93"><span class="toc-text">数据处理与可视化技术总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/06/01/22.6.1_1/" title="爬取豆瓣top250电影表单之数据可视化"><img src="https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/202206011916247.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="爬取豆瓣top250电影表单之数据可视化"/></a><div class="content"><a class="title" href="/2022/06/01/22.6.1_1/" title="爬取豆瓣top250电影表单之数据可视化">爬取豆瓣top250电影表单之数据可视化</a><time datetime="2022-06-01T11:12:51.000Z" title="发表于 2022-06-01 19:12:51">2022-06-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/08/22.5.8_1/" title="爬取豆瓣top250电影表单"><img src="https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/20220508185310.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="爬取豆瓣top250电影表单"/></a><div class="content"><a class="title" href="/2022/05/08/22.5.8_1/" title="爬取豆瓣top250电影表单">爬取豆瓣top250电影表单</a><time datetime="2022-05-08T10:50:47.000Z" title="发表于 2022-05-08 18:50:47">2022-05-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/20/22.4.20_1/" title="python爬虫三种数据解析"><img src="https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/python.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="python爬虫三种数据解析"/></a><div class="content"><a class="title" href="/2022/04/20/22.4.20_1/" title="python爬虫三种数据解析">python爬虫三种数据解析</a><time datetime="2022-04-20T07:34:37.000Z" title="发表于 2022-04-20 15:34:37">2022-04-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/19/22.4.19_2/" title="转|基于油猴的力扣题目转换工具 html转markdown 便于写题解"><img src="https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="转|基于油猴的力扣题目转换工具 html转markdown 便于写题解"/></a><div class="content"><a class="title" href="/2022/04/19/22.4.19_2/" title="转|基于油猴的力扣题目转换工具 html转markdown 便于写题解">转|基于油猴的力扣题目转换工具 html转markdown 便于写题解</a><time datetime="2022-04-19T08:00:00.000Z" title="发表于 2022-04-19 16:00:00">2022-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/04/19/22.4.19_1/" title="GitHub访问困难问题"><img src="https://cdn.jsdelivr.net/gh/SinosBlessing/Sinos_cdn@master/img/2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="GitHub访问困难问题"/></a><div class="content"><a class="title" href="/2022/04/19/22.4.19_1/" title="GitHub访问困难问题">GitHub访问困难问题</a><time datetime="2022-04-19T04:06:20.000Z" title="发表于 2022-04-19 12:06:20">2022-04-19</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/footer.png')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By Sinos</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>function loadUtterances () {
+  let ele = document.createElement('script')
+  ele.setAttribute('id', 'utterances_comment')
+  ele.setAttribute('src', 'https://utteranc.es/client.js')
+  ele.setAttribute('repo', 'SinosBlessing/SinosBlessing.github.io')
+  ele.setAttribute('issue-term', 'pathname')
+  let nowTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'photon-dark' : 'github-light'
+  ele.setAttribute('theme', nowTheme)
+  ele.setAttribute('crossorigin', 'anonymous')
+  ele.setAttribute('async', 'true')
+  document.getElementById('utterances-wrap').insertAdjacentElement('afterbegin',ele)
+}
+
+function utterancesTheme () {
+  const iframe = document.querySelector('.utterances-frame')
+  if (iframe) {
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'photon-dark' : 'github-light'
+    const message = {
+      type: 'set-theme',
+      theme: theme
+    };
+    iframe.contentWindow.postMessage(message, 'https://utteranc.es');
+  }
+}
+
+if ('Utterances' === 'Utterances' || !false) {
+  if (false) btf.loadComment(document.getElementById('utterances-wrap'), loadUtterances)
+  else loadUtterances()
+} else {
+  function loadOtherComment () {
+    loadUtterances()
+  }
+}</script></div><div class="aplayer no-destroy" data-id="7387711053" data-lrctype="0" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="false" data-mutex="true"></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["link[rel=\"canonical\"]","meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
