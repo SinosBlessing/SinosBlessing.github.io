@@ -3,7 +3,7 @@
   xmlns:atom="http://www.w3.org/2005/Atom"
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Sinos</title>
+    <title>Sinos的个人站</title>
     <link>https://s1nos.cc/</link>
     
     <atom:link href="https://s1nos.cc/atom.xml" rel="self" type="application/rss+xml"/>

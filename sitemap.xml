@@ -139,36 +139,36 @@
 
   <url>
     <loc>https://s1nos.cc/</loc>
-    <lastmod>2022-06-08</lastmod>
+    <lastmod>2022-06-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>https://s1nos.cc/tags/leetcode/</loc>
-    <lastmod>2022-06-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://s1nos.cc/tags/GitHub/</loc>
-    <lastmod>2022-06-08</lastmod>
+    <lastmod>2022-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://s1nos.cc/tags/%E7%88%AC%E8%99%AB/</loc>
-    <lastmod>2022-06-08</lastmod>
+    <lastmod>2022-06-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://s1nos.cc/tags/leetcode/</loc>
+    <lastmod>2022-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://s1nos.cc/tags/python-%E7%88%AC%E8%99%AB/</loc>
-    <lastmod>2022-06-08</lastmod>
+    <lastmod>2022-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -177,7 +177,7 @@
   
   <url>
     <loc>https://s1nos.cc/categories/%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2022-06-08</lastmod>
+    <lastmod>2022-06-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
