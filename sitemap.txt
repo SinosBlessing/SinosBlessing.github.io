@@ -14,8 +14,8 @@ https://s1nos.cc/categories/index.html
 https://s1nos.cc/movies/index.html
 https://s1nos.cc/Page%20Front-matter.html
 https://s1nos.cc/
-https://s1nos.cc/tags/%E7%88%AC%E8%99%AB/
-https://s1nos.cc/tags/leetcode/
 https://s1nos.cc/tags/GitHub/
+https://s1nos.cc/tags/leetcode/
+https://s1nos.cc/tags/%E7%88%AC%E8%99%AB/
 https://s1nos.cc/tags/python-%E7%88%AC%E8%99%AB/
 https://s1nos.cc/categories/%E6%8A%80%E6%9C%AF/
